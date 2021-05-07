@@ -22,6 +22,8 @@ import { UtilsService } from './core/utils/utils.service';
  * * App info
  */
 import { version, name as AppName } from '../package.json';
+import { UAT } from './core/data/@types/enitity';
+import { GetUATBySirutaCodeDto } from './modules/api-v1/@types/dto';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -57,7 +59,9 @@ async function bootstrap() {
     .setVersion(version)
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config, {
+    extraModels: [UAT, GetUATBySirutaCodeDto],
+  });
   SwaggerModule.setup(`documentation`, app, document);
 
   // ? start the server

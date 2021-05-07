@@ -9,7 +9,7 @@ import path from 'path';
 /**
  * * Types
  */
-import { UAT } from './@types/interface';
+import { UAT } from './@types/enitity';
 
 @Injectable()
 export class DataService {

@@ -3,6 +3,7 @@
  */
 
 import { Module } from '@nestjs/common';
+import { APP_FILTER } from '@nestjs/core';
 
 /**
  * * Modules
@@ -22,9 +23,20 @@ import { AppService } from './app.service';
  */
 import { AppController } from './app.controller';
 
+/**
+ * * Filters
+ */
+import { GlobalErrorFilter } from './common/expection-filters/global-exception.filter';
+
 @Module({
   imports: [ConfigModule, UtilsModule, DataModule, ApiV1Module],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: GlobalErrorFilter,
+    },
+  ],
 })
 export class AppModule {}
