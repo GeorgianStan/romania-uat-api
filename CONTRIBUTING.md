@@ -39,3 +39,7 @@ It should :
   - release : updates in the version number
 
 _example_: **git commit -m "feat,test: functionality to do X was implemented and tested"**
+
+## Code linting
+
+Before publishing, please lint the code using the `npm run lint` command.
