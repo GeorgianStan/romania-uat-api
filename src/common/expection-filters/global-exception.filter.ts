@@ -3,7 +3,7 @@
  */
 
 import { Catch, ArgumentsHost, Logger } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { BaseExceptionFilter } from '@nestjs/core';
 
 /**

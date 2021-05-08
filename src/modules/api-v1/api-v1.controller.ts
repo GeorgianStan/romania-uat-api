@@ -8,13 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import {
-  ApiBody,
-  ApiCreatedResponse,
-  ApiQuery,
-  ApiTags,
-  getSchemaPath,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 
 /**
  * * Services
@@ -62,7 +56,9 @@ export class ApiV1Controller {
       oneOf: [{ $ref: getSchemaPath(UAT) }, {}],
     },
   })
-  getUATBySirutaCode(@Query() payload: GetUATBySirutaCodeDto): UAT | {} {
+  getUATBySirutaCode(
+    @Query() payload: GetUATBySirutaCodeDto,
+  ): UAT | Record<any, never> {
     return this.apiV1Service.getUATBySirutaCode(payload.siruta) || {};
   }
 
