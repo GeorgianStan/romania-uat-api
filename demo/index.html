@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <style>
+      .badge {
+        padding: 15px;
+        cursor: pointer;
+        margin: 5px;
+        font-size: 14px;
+      }
+
+      #level3-badges-container .badge {
+        cursor: default;
+      }
+
+      .active {
+        background-color: #f44336 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="w3-container">
+      <h1>Judete</h1>
+      <input type="text" placeholder="Filter" id="lvl1-filter" />
+      <div style="margin-top: 30px" id="lvl1-badges-container"></div>
+    </section>
+    <hr />
+
+    <section class="w3-container" style="display: none" id="level2-container">
+      <h1>Municipii, Orase, Comune</h1>
+      <input type="text" placeholder="Filter" id="lvl2-filter" />
+
+      <div style="margin-top: 30px" id="level2-badges-container"></div>
+    </section>
+
+    <section class="w3-container" style="display: none" id="level3-container">
+      <h1>Localitati componente, Sate, Sectoare ale capitalei</h1>
+
+      <div style="margin-top: 30px" id="level3-badges-container"></div>
+    </section>
+
+    <script>
+      let LVL1_DATA;
+      let LVL2_DATA;
+      let LVL3_DATA;
+
+      function buildBadge(uat) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('w3-badge', 'w3-green', 'badge');
+        wrapper.dataset.label = uat.label.toUpperCase();
+        wrapper.dataset.siruta = uat.siruta;
+
+        const span = document.createElement('span');
+        span.innerHTML = uat.label;
+
+        wrapper.append(span);
+
+        return wrapper;
+      }
+
+      function renderJudete(judete) {
+        const container = document.querySelector('#lvl1-badges-container');
+        container.innerHTML = '';
+        document.querySelector('#lvl2-filter').value = '';
+
+        judete.forEach((judet) => {
+          console.log(judet);
+          const badge = buildBadge(judet);
+          container.append(badge);
+
+          badge.onclick = () => {
+            const currentActive = container.querySelector('.active');
+            currentActive && currentActive.classList.remove('active');
+
+            badge.classList.add('active');
+
+            showLevel2(badge.dataset.siruta);
+          };
+        });
+      }
+
+      // LVL 2
+      function renderLevel2() {
+        document.querySelector('#level3-container').style.display = 'none';
+
+        const badgesContainer = document.querySelector(
+          '#level2-badges-container',
+        );
+        badgesContainer.innerHTML = '';
+
+        LVL2_DATA.forEach((data) => {
+          const badge = buildBadge(data);
+          badgesContainer.append(badge);
+
+          badge.onclick = () => {
+            const currentActive = badgesContainer.querySelector('.active');
+
+            currentActive && currentActive.classList.remove('active');
+
+            badge.classList.add('active');
+
+            showLevel3(badge.dataset.siruta);
+          };
+        });
+
+        const lvlContainer = document.querySelector('#level2-container');
+        lvlContainer.style.display = 'block';
+      }
+
+      async function showLevel2(siruta) {
+        const res = await fetch(
+          `https://romania-uat-api.herokuapp.com/api/v1/uat?sirutaUp=${siruta}`,
+        );
+        LVL2_DATA = await res.json();
+
+        renderLevel2();
+      }
+
+      // LVL 3
+      function renderLevel3() {
+        const badgesContainer = document.querySelector(
+          '#level3-badges-container',
+        );
+        badgesContainer.innerHTML = '';
+        LVL3_DATA.forEach((data) => {
+          const badge = buildBadge(data);
+          badgesContainer.append(badge);
+        });
+        const lvlContainer = document.querySelector('#level3-container');
+
+        lvlContainer.style.display = 'block';
+      }
+      async function showLevel3(siruta) {
+        const res = await fetch(
+          `https://romania-uat-api.herokuapp.com/api/v1/uat?sirutaUp=${siruta}`,
+        );
+        LVL3_DATA = await res.json();
+        renderLevel3();
+      }
+
+      // MAIN
+      (async () => {
+        const fetchJudete = async () => {
+          const res = await fetch(
+            'https://romania-uat-api.herokuapp.com/api/v1/judete',
+          );
+          return res.json();
+        };
+
+        LVL1_DATA = await fetchJudete();
+        renderJudete(LVL1_DATA);
+      })();
+
+      // LVL1 FILTER
+      document.querySelector('#lvl1-filter').oninput = (e) => {
+        const queryText = e.target.value.toLowerCase();
+
+        let filteredData = queryText
+          ? LVL1_DATA.filter(
+              (data) => data.label.toLowerCase().indexOf(queryText) != -1,
+            )
+          : LVL1_DATA;
+
+        renderJudete(filteredData);
+      };
+
+      // LVL2 FILTER
+      document.querySelector('#lvl2-filter').oninput = (e) => {
+        const queryText = e.target.value.toLowerCase();
+
+        let filteredData = queryText
+          ? LVL2_DATA.filter(
+              (data) => data.label.toLowerCase().indexOf(queryText) != -1,
+            )
+          : LVL2_DATA;
+
+        LVL2_DATA = filteredData;
+        renderLevel2();
+      };
+    </script>
+  </body>
+</html>
