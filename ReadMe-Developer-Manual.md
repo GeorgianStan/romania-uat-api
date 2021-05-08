@@ -20,19 +20,22 @@ Now `npx` will now use the local `@nestjs/cli` version from `node_modules`.
 
 ## How to run in production
 
-**Check if `.env.production` exists and it has the expected variables**
+To start the application you need to create a `.production.env` file with the expected variables from `.sample.env`.
+This file is not completely required, but the ENV variables from .sampe.env must be present in this environment.
+
+If `.production.env` exists then the application will use the variables present there istead of those set globally in the `process.env`.
 
 ```bash
 $ nvm use #optional, but the min version of NodeJS should match the version from .nvmrc
 $ nvm install(optional)
 $ npm ci
 $ npm run build:prod
-$ # set NODE_ENV to production and execute npm run start
+$ # set NODE_ENV to production and execute npm run start:prod
 ```
 
 ## How to run in dev
 
-**Check if `.env.development` exists and it has the expected variables**
+Same as production, but this time the file name must be `.development.test`
 
 1. Switch to node verison >= the one mentioned in `.nvmrc`
 2. Install the dependencies `npm ci` or `npm i`
@@ -40,14 +43,19 @@ $ # set NODE_ENV to production and execute npm run start
 
 ## How to run debug
 
-**Check if `.env.development` exists and it has the expected variables**
+Same as development
 
 1. Open VSCode
 2. All the settings are in `.vscode/launch.json`, so update them if you thing that is required
 3. In `Run and Debug` panel, choose and run `Debug App`
 
+## Test E2E
+
+For E2E testing the workflow is the same as `development` or `production` in terms of system variables, but this time the file name must be `.test.env`.
+
 ## Other Scripts
 
 `npm run test` - to run all the test files
 `test:e2e` - to run only the E2E tests
-`npm run lint` - to lint the code
+`npm run lint` - to show linting warning or errors
+`npm run lint:fix` - to lint and fix the code
