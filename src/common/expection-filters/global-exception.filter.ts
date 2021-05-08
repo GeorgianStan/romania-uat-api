@@ -27,6 +27,10 @@ export class GlobalErrorFilter extends BaseExceptionFilter {
     const status = exception.status;
 
     switch (status) {
+      case 404: {
+        response.status(404).send();
+        break;
+      }
       // * Internal server error
       default: {
         this.#logger.error('Unexpected 500 error');

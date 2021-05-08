@@ -6,6 +6,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 /**
  * * Modules
@@ -30,6 +31,12 @@ async function bootstrap() {
 
   const configService: ConfigService = app.get(ConfigService);
   const utilsService: UtilsService = app.get(UtilsService);
+
+  // ? hide 'x-powered-by' header
+  app.use(helmet.hidePoweredBy());
+
+  // ? cors
+  app.enableCors();
 
   // ? get the real IP in case this app will run behind a reverse proxy
   app.set('trust proxy', 1);

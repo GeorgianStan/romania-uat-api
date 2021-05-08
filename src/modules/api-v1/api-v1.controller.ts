@@ -59,19 +59,20 @@ export class ApiV1Controller {
   @ApiCreatedResponse({
     description: 'Return one UAT that the SIRUTA code provided',
     schema: {
-      oneOf: [{ $ref: getSchemaPath(UAT) }, { nullable: true }],
+      oneOf: [{ $ref: getSchemaPath(UAT) }, {}],
     },
   })
-  getUATBySirutaCode(@Query() payload: GetUATBySirutaCodeDto): UAT {
-    return this.apiV1Service.getUATBySirutaCode(payload.siruta);
+  getUATBySirutaCode(@Query() payload: GetUATBySirutaCodeDto): UAT | {} {
+    return this.apiV1Service.getUATBySirutaCode(payload.siruta) || {};
   }
+
   @UsePipes(new ValidationPipe({ transform: true }))
   @Get('uat')
   @ApiCreatedResponse({
     description:
       'Return one or more UAT objects that match the provided query. This method can be used to get most of the data required.',
     schema: {
-      oneOf: [{ $ref: getSchemaPath(UAT), type: 'array' }, { nullable: true }],
+      allOf: [{ $ref: getSchemaPath(UAT), type: 'array' }],
     },
   })
   getUATByQuery(@Query() payload: GetUATByQueryDto): UAT[] {
