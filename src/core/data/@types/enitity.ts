@@ -11,8 +11,10 @@ import { UATType } from './enum';
 export class UAT {
   @ApiProperty({ description: 'Name of the UAT' })
   label: string;
+
   @ApiProperty({ description: 'SIRUTA CODE' })
   siruta: number;
+
   @ApiProperty({
     enum: Object.keys(UATType).filter((_) => !isNaN(Number(_))),
     description: `The type of the UAT: ${Object.keys(UATType).filter((_) =>
@@ -20,11 +22,13 @@ export class UAT {
     )}`,
   })
   type: UATType;
+
   @ApiProperty({
     description:
       'Identification code for the unit hierarchically superior administrative',
   })
   sirutaUp: number;
+
   @ApiProperty({
     description: 'Abreviation code for UAT of type JUDET',
   })

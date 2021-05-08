@@ -58,7 +58,8 @@ export class ApiV1Service {
    */
   get judete(): UAT[] {
     return this.dataService.data.filter(
-      (uat: UAT) => uat.type === UATType.JUDET,
+      (uat: UAT) =>
+        uat.type === UATType.JUDET || uat.type === UATType.MUNICIPIUL_BUCURESTI,
     );
   }
 
