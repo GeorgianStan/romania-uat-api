@@ -71,9 +71,9 @@ async function bootstrap() {
   SwaggerModule.setup(`documentation`, app, document);
 
   // ? start the server
-  await app.listen(configService.get('NODE_PORT'), () => {
+  await app.listen(configService.get('PORT'), () => {
     console.log(
-      `app up in ${process.env.NODE_ENV} at ${configService.get('NODE_PORT')}`,
+      `app up in ${process.env.NODE_ENV} at ${configService.get('PORT')}`,
     );
   });
 }
