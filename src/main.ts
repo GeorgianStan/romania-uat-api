@@ -44,7 +44,7 @@ async function bootstrap() {
   app.use(
     rateLimit({
       windowMs: utilsService.stringToMs(
-        configService.get('WINDOWMS_RATE_LIMIT'), // ? a given IP can make a limited number of request in this x time period
+        configService.get('WINDOWMS_RATE_LIMIT'),
       ),
       max: parseInt(configService.get('RATE_LIMIT_MAX_REQ')), // ? limit each IP to x requests per windowMs
     }),
@@ -73,9 +73,7 @@ async function bootstrap() {
   // ? start the server
   await app.listen(configService.get('PORT'), () => {
     console.log(
-      `App up in ${configService.get('NODE_ENV')} at PORT: ${configService.get(
-        'PORT',
-      )}`,
+      `app up in ${process.env.NODE_ENV} at ${configService.get('PORT')}`,
     );
   });
 }

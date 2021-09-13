@@ -17,9 +17,9 @@ export class UAT {
 
   @ApiProperty({
     enum: Object.keys(UATType).filter((_) => !isNaN(Number(_))),
-    description: `The type of the UAT: ${Object.keys(UATType).filter((_) =>
-      isNaN(Number(_)),
-    )}`,
+    description: `The type of the UAT: ${Object.keys(UATType)
+      .filter((uatType) => isNaN(Number(uatType)))
+      .map((uatType) => ` ${uatType}`)}`,
   })
   type: UATType;
 
