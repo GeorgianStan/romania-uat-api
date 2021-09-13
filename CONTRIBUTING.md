@@ -37,6 +37,8 @@ It should :
   - test : tests and CI updates
   - chore : updates for toolchain(webpack rules, update/upgrade dependencies and so on)
   - release : updates in the version number
+  - demo : demo files
+  - data : data change
 
 _example_: **git commit -m "feat,test: functionality to do X was implemented and tested"**
 
