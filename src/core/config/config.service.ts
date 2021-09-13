@@ -4,7 +4,7 @@
 import { Injectable } from '@nestjs/common';
 import { resolve } from 'path';
 import { parse } from 'dotenv';
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 
 @Injectable()
 export class ConfigService {
@@ -28,7 +28,10 @@ export class ConfigService {
       default:
         throw new Error('Specify the NODE_ENV variable');
     }
-    this.envConfig = parse(readFileSync(this.envPath));
+
+    this.envConfig = existsSync(this.envPath)
+      ? parse(readFileSync(this.envPath))
+      : {};
   }
 
   get(key: string): string {

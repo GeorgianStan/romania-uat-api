@@ -20,19 +20,19 @@ Now `npx` will now use the local `@nestjs/cli` version from `node_modules`.
 
 ## How to run in production
 
-**Check if `.env.production` exists and it has the expected variables**
+**Check if `.production.env` exists and it has the expected variables or if the environment variables from .sample.env are all set.**
 
 ```bash
 $ nvm use #optional, but the min version of NodeJS should match the version from .nvmrc
 $ nvm install(optional)
 $ npm ci
-$ npm run build:prod
-$ # set NODE_ENV to production and execute npm run start
+$ npm run build
+$ npm run start:prod
 ```
 
 ## How to run in dev
 
-**Check if `.env.development` exists and it has the expected variables**
+**Check if `.development.env` exists and it has the expected variables**
 
 1. Switch to node verison >= the one mentioned in `.nvmrc`
 2. Install the dependencies `npm ci` or `npm i`
@@ -40,7 +40,7 @@ $ # set NODE_ENV to production and execute npm run start
 
 ## How to run debug
 
-**Check if `.env.development` exists and it has the expected variables**
+**Check if `.development.env` exists and it has the expected variables**
 
 1. Open VSCode
 2. All the settings are in `.vscode/launch.json`, so update them if you thing that is required
@@ -49,5 +49,8 @@ $ # set NODE_ENV to production and execute npm run start
 ## Other Scripts
 
 `npm run test` - to run all the test files
-`test:e2e` - to run only the E2E tests
 `npm run lint` - to lint the code
+
+# Data
+
+The UAT data can be found in `data` folder in JSON format.

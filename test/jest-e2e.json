@@ -6,6 +6,7 @@
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
+  "testPathIgnorePatterns": ["dist/"],
   "moduleNameMapper": {
     "src(.*)$": "<rootDir>/src/$1"
   }

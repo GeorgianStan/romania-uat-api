@@ -48,7 +48,7 @@ export class ApiV1Service {
       return this.#getUATBySirutaUp(payload.sirutaUp);
     }
 
-    if (payload.type) {
+    if (payload.type !== null || payload.type !== undefined) {
       return this.#getUATByType(payload.type);
     }
   }
