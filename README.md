@@ -11,7 +11,7 @@ The project is a web API for the administrative units on the Romanian territory.
 
 The API is free to use and it can be found at https://romania-uat-api.herokuapp.com/
 
-Tp access the documentation, navigate to [/documentation](https://romania-uat-api.herokuapp.com/documentation/).
+To access the documentation, navigate to [/documentation](https://romania-uat-api.herokuapp.com/documentation/).
 
 ## Rate limit
 
